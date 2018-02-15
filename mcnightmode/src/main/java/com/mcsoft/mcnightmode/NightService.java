@@ -1,10 +1,12 @@
 package com.mcsoft.mcnightmode;
 
+import android.app.Notification;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.ColorInt;
 import android.util.Log;
@@ -27,6 +29,10 @@ public class NightService extends Service
    public void onCreate()
    {
       Log.d(TAG, "onCreate");
+      if (Build.VERSION.SDK_INT >= 26)
+      {
+         startForeground(1, new Notification());
+      }
    }
 
    @Override
