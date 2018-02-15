@@ -21,7 +21,7 @@ Add this to your module build.gradle
 
 ```gradle
    dependencies {
-        compile 'com.github.PuffoCyano:mcnightmode:1.0'
+        compile 'com.github.PuffoCyano:mcnightmode:v1.1'
     }
 
 ```
