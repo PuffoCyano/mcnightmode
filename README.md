@@ -26,6 +26,17 @@ Add this to your module build.gradle
 
 ```
 ### Usage
+Keep in mind to allow the permission "Settings.ACTION_MANAGE_OVERLAY_PERMISSION" to allow Service to draw on other apps:
+```java
+if (Build.VERSION.SDK_INT >= 23)
+{
+ if (!Settings.canDrawOverlays(this))
+ {
+    Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+    startActivity(myIntent);
+ }
+}
+```
 In your activity/fragment call service "NightService":
 ```java
     startService(new Intent(context, NightService.class));
@@ -33,6 +44,17 @@ In your activity/fragment call service "NightService":
 If you want you can pass a parameter to service to set filter's intensity (default value is 5 if you don't pass anything):
 ```java
     startService(new Intent(context, NightService.class).putExtra("amount",value)); // value = 0 - 10
+```
+However if you run Android 8 it is important start service with this code:
+```java
+if (Build.VERSION.SDK_INT >= 26)
+{
+   startForegroundService(new Intent(context, NightService.class).putExtra("amount",value));
+}
+else
+{
+   startService(new Intent(context, NightService.class).putExtra("amount",value));
+}
 ```
 
 ## License
